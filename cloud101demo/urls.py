@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from app import views
+from app import api
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', 'app.views.home', name='home'),
-    url(r'^map_api', 'app.views.map_api', name='map_api'),
-    url(r'^api/simple_chart', 'app.api.simple_chart'),
+    url(r'^$', views.home, name='home'),
+    url(r'^map_api', views.map_api, name='map_api'),
+    url(r'^api/simple_chart', api.simple_chart),
 ]
