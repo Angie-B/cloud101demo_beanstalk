@@ -1,0 +1,77 @@
+{% extends "app/layout.html" %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+{%  block head %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+<style>
+      .leaflet-container { height: 600px; }
+      .legend { text-align: left; line-height: 18px; color: #555; }
+      .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
+    </style>
+{%  endblock %}
+
+{% block content %}
+    {% leaflet_map "map" callback="mapInit" %}
+{% endblock %}
+
+ {% block script %}
+ <script type="text/javascript">
+ // Make marker colors variable
+function getValue(x) {
+    return x > 30 ? "#800026" :
+	       x > 25 ? "#BD0026" :
+	       x > 20 ? "#E31A1C" :
+	       x > 15 ? "#FC4E2A" :
+	       x > 10 ? "#FD8D3C" :
+	       x > 5 ? "#FEB24C" :
+	       x > 0 ? "#FED976" :
+		       "#FFEDA0";
+}
+
+function style(feature) {
+	return {
+		"color": getValue(feature.properties.val),
+        "radius": 3,
+        "fillOpacity": 0.6,
+		"stroke": false
+	};
+}
+
+
+// Initialize Leaflet map
+     var map = L.map('map').setView([12, -85], 6);
+     L.tileLayer('https://api.mapbox.com/styles/v1/cloudmaven/civbvg87q001m2ipk2m1qfq5x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2xvdWRtYXZlbiIsImEiOiJjaXZidWFzMTEwMGJ1MnlvNnRvOW8xY2lxIn0.zWtZR-VJDOgoxHo5R64VuA', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            }).addTo(map);
+
+     var geojsonFeature = {{ geojsondata|safe }};
+     L.geoJson(geojsonFeature, {pointToLayer: function (feature, latlng) {
+         return L.circleMarker(latlng, style(feature)).bindPopup(feature.properties.val)
+            .on('mouseover', function (e) {
+            this.openPopup();});
+     }}).addTo(map);
+
+// Add legend
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 5, 10, 15, 20, 25, 30, 35],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getValue(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
+    </script>
+{% endblock %}

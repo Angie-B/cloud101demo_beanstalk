@@ -1,0 +1,33 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>NicaDIF</h1>
+    <p class="lead">A Dynamic Information Framework for Water Resources Management for Nicaragua</p>
+    <p><a href="/dif" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>What is NicaDIF?</h2>
+        <p>
+            Simulation and visualization of water and energy linkages in Nicaragua through public, open-source data and modeling platforms. 
+        </p>
+        <p><a class="btn btn-default" href="/dif">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Visualization Toolkit</h2>
+        <p><a class="btn btn-default" href="/about">Analysis</a></p>
+        <p><a class="btn btn-default" href="/netcdf">NetCDF subsetting</a></p>
+        <p><a class="btn btn-default" href="/map_api">Maps</a></p>
+        <p><a class="btn btn-default" href="/stations">Stations</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Documentation</h2>
+        <p><a class="btn btn-default" href="http://github.com/amandalehr">Github &raquo;</a></p>
+        <p><a class="btn btn-default" href="/documentation">More about this project &raquo;</a></p>
+    </div>
+</div>
+
+{% endblock %}
