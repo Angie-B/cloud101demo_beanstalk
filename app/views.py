@@ -21,10 +21,25 @@ def home(request):
 def map_api(request):
     """Renders the about page."""
     # assert isinstance(request, HttpRequest)
+    month = request.GET.get('month', None)
+    var = request.GET.get('var', None)
+
+    filename = "./test.geojson"
+    infile = 'Mean_' + month + '_' + var + '.geojson'
+
+    # connect to the bucket
+    conn = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    bucket = conn.get_bucket(settings.BUCKET_NAME)
+
+    key = bucket.get_key(infile)
+    key.get_contents_to_filename(filename)
+
+    geojsondata = open(filename).read()
 
     return TemplateResponse(
         request,
         'map_api.html',{
             'title':'MAP_API',
-            'message':'Generate the spatial plot for average values'}
+            'message':'Generate the spatial plot for average values'
+        }
     )
