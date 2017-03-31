@@ -120,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/static/'
+STATIC_URL = '/static/'
 
 BUCKET_NAME = 'cloud101demo'
 AWS_ACCESS_KEY_ID = 'AKIAJQJ4MV2X5QX5WBNQ'
