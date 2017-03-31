@@ -13,10 +13,10 @@
 {% block content %}
     <form id="api-form">
       Month:<br>
-      <input type="text" name="month" value="Apr">
+      <input type="text" name="month" value="e.g. Apr">
       <br>
       Variable:<br>
-      <input type="text" name="var" value="ET">
+      <input type="text" name="var" value="e.g. ET">
       <br><br>
       <input type="submit" value="Submit">
     </form>
@@ -47,7 +47,7 @@ function style(feature) {
 
 
 // Initialize Leaflet map
-     var map = L.map('map').setView([12, -85], 6);
+     var map = L.map('map').setView([39, 68], 6);
      L.tileLayer('https://api.mapbox.com/styles/v1/cloudmaven/civbvg87q001m2ipk2m1qfq5x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2xvdWRtYXZlbiIsImEiOiJjaXZidWFzMTEwMGJ1MnlvNnRvOW8xY2lxIn0.zWtZR-VJDOgoxHo5R64VuA', {
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             }).addTo(map);
